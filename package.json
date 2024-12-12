@@ -2,27 +2,32 @@
   "name": "guild-logger",
   "version": "1.0.0",
   "description": "Discord serverのログを取ってくれるBOT",
-  "main": "index.js",
-  "repository": "git@github.com:raitako-1/guild-logger.git",
+  "main": "./dist/index.js",
+  "scripts": {
+    "dev": "ts-node ./src/index.ts",
+    "clean": "rimraf ./dist",
+    "build": "tsc -p ./",
+    "start": "node ./dist/index.js"
+  },
+  "keywords": [],
   "author": "raitako_1",
   "license": "MIT",
-  "scripts": {
-    "start": "ts-node src/index.ts",
-    "build": "tsc"
-  },
   "dependencies": {
     "discord.js": "^14.16.3",
-    "dotenv": "^16.4.5",
+    "dotenv": "^16.4.7",
     "node-cron": "^3.0.3"
   },
   "devDependencies": {
-    "@types/node": "^22.9.0",
+    "@types/node": "^22.10.0",
     "@types/node-cron": "^3.0.11",
+    "rimraf": "^6.0.1",
     "ts-node": "^10.9.2",
     "typescript": "^5.6.3"
   },
   "engines": {
-    "node": ">= 20.17.0",
-    "yarn": "1"
+    "node": ">= 20",
+    "npm": "use pnpm please!",
+    "yarn": "use pnpm please!",
+    "pnpm": ">= 9"
   }
 }
