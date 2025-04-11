@@ -1,0 +1,32 @@
+{
+  "name": "base-discord-bot",
+  "version": "1.0.0",
+  "description": "Base Discord Bot",
+  "main": "./dist/index.js",
+  "scripts": {
+    "dev": "ts-node ./src/index.ts",
+    "clean": "rimraf ./dist",
+    "build": "tsc -p ./",
+    "start": "node ./dist/index.js"
+  },
+  "keywords": [],
+  "repository": "https://github.com/raitako-1/base-discord-bot.git",
+  "author": "raitako_1",
+  "license": "MIT",
+  "dependencies": {
+    "discord.js": "^14.18.0",
+    "dotenv": "^16.5.0",
+    "envalid": "^8.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.14.0",
+    "rimraf": "^6.0.1",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.8.3"
+  },
+  "engines": {
+    "node": ">= 22.14.0",
+    "pnpm": ">= 10.3.0"
+  },
+  "packageManager": "pnpm@10.8.0"
+}
