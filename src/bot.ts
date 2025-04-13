@@ -19,7 +19,7 @@ import fs from 'fs'
 import path from 'path'
 import { type ButtonInteractionModule, type CommandInteractionModule, type EventModule, type InteractionModule } from './types'
 import { type AppContext, env } from './util/config'
-import { createLogger, convLogMsg, type Logger } from './util/logger'
+import { createLogger, type Logger } from './util/logger'
 
 export class Bot {
   public client: Client
@@ -44,25 +44,26 @@ export class Bot {
 
     const ctx: AppContext = {
       logger,
+      client,
     }
 
     logger.info('Loading events, please wait...')
     const eventsPath = path.join(__dirname, 'events')
     const eventFiles = fs.readdirSync(eventsPath).filter(file => file.endsWith(path.parse(__filename).ext))
     for (const file of eventFiles) {
-    	const filePath = path.join(eventsPath, file)
+      const filePath = path.join(eventsPath, file)
       const event = (await import(filePath)).default as EventModule
       const eventCtx: AppContext = {
         ...ctx,
         logger: createLogger({name: 'BOT', childs: [`evt: ${event.name}`]}),
       }
-    	if (event.once) {
+      if (event.once) {
         logger.debug(`Set event (once): ${event.name} at ${filePath}`)
-    		client.once(event.name, async (...args: any[]): Promise<void> => await event.execute(eventCtx, ...args))
-    	} else {
+        client.once(event.name, async (...args: any[]): Promise<void> => await event.execute(eventCtx, ...args))
+      } else {
         logger.debug(`Set event (on): ${event.name} at ${filePath}`)
-    		client.on(event.name, async (...args: any[]): Promise<void> => await event.execute(eventCtx, ...args))
-    	}
+        client.on(event.name, async (...args: any[]): Promise<void> => await event.execute(eventCtx, ...args))
+      }
     }
     logger.debug(`Successfully loaded ${eventFiles.length} events.`)
 
@@ -102,7 +103,7 @@ export class Bot {
   async close() {
     this.ctx.logger.info('Stopping bot...')
     const logChannel = await this.client.channels.fetch(env.BOT_LOG_CHANNEL_ID)
-    if (logChannel?.type === 0) await logChannel.send(convLogMsg(env.BOT_CLOSED_MESSAGE))
+    if (logChannel?.type === 0) await logChannel.send(env.BOT_CLOSED_MESSAGE)
     await this.client.destroy()
     this.ctx.logger.info('Bot closed')
   }

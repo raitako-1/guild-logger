@@ -5,8 +5,8 @@ import { createLogger } from './util/logger'
 const run = async () => {
   const logger = createLogger({name: 'Runner'})
   logger.info(`Running ${process.env.npm_package_name} ${process.env.npm_package_version} (${env.NODE_ENV})`)
-  logger.info('System Info: Node.js ' + process.version + ' OS: ' + process.platform)
-  logger.debug(`DebugMode is enabled.`)
+  logger.info(`System Info: Node.js ${process.version} / ${process.platform} ${process.arch}`)
+  logger.debug('DebugMode is enabled.')
 
   const bot = await Bot.create()
 

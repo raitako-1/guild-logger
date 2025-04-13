@@ -55,7 +55,3 @@ export const createLogger = (opts: CreateLoggerOptions): Logger => {
     }
   }
 }
-
-export const convLogMsg = (content: string, mentionUserId?: string): string => {
-  return `<t:${Math.round(new Date().getTime() / 1000)}:T> from: [bskymc-discord-bot](https://github.com/raitako-1/bskymc-discord-bot)${mentionUserId ? ` <@${mentionUserId}>` : ''}\n> ${content.replaceAll('\n', '\n> ')}`
-}

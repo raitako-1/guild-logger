@@ -1,9 +1,11 @@
-import { type Logger } from './logger'
+import { Client } from 'discord.js'
 import dotenv from 'dotenv'
 import { cleanEnv, str, testOnly } from 'envalid'
+import { type Logger } from './logger'
 
 export interface AppContext {
   logger: Logger
+  client: Client
 }
 
 dotenv.config()

@@ -6,6 +6,6 @@ export default {
   customId: 'example',
   execute: async (ctx: AppContext, interaction: ButtonInteraction): Promise<void> => {
     ctx.logger.info('example button')
-		await interaction.reply({content: 'example button'})
+    await interaction.reply({content: 'example button'})
   },
 }

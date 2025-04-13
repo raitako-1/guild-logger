@@ -3,9 +3,9 @@ import { type AppContext } from '../util/config'
 import { createLogger } from '../util/logger'
 
 export default {
-	name: Events.InteractionCreate,
-	once: false,
-	execute: async (ctx: AppContext, interaction: BaseInteraction): Promise<void> => {
+  name: Events.InteractionCreate,
+  once: false,
+  execute: async (ctx: AppContext, interaction: BaseInteraction): Promise<void> => {
     if (interaction.isButton()) {
       const button = interaction.client.interactions.buttons.get(interaction.customId)
 
@@ -17,6 +17,7 @@ export default {
       const buttonCtx: AppContext = {
         ...ctx,
         logger: createLogger({name: 'BOT', childs: [`evt: ${Events.InteractionCreate}`, `button: ${interaction.customId}`]}),
+        client: interaction.client,
       }
 
       try {
@@ -31,7 +32,7 @@ export default {
           await interaction.reply({ content: 'There was an error while executing this button!', ephemeral: true })
         }
       }
-		} else if (interaction.isChatInputCommand()) {
+    } else if (interaction.isChatInputCommand()) {
       const command = interaction.client.interactions.commands.get(interaction.commandName)
 
       if (!command) {
@@ -42,6 +43,7 @@ export default {
       const commandCtx: AppContext = {
         ...ctx,
         logger: createLogger({name: 'BOT', childs: [`evt: ${Events.InteractionCreate}`, `cmd: /${interaction.commandName}`]}),
+        client: interaction.client,
       }
 
       try {
@@ -57,7 +59,7 @@ export default {
         }
       }
     } else if (interaction.isStringSelectMenu()) {
-			// respond to the select menu
-		}
-	},
+      // respond to the select menu
+    }
+  },
 }
