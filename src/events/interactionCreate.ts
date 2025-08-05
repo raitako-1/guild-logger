@@ -16,7 +16,7 @@ export default {
 
       const buttonCtx: AppContext = {
         ...ctx,
-        logger: createLogger({name: 'BOT', childs: [`evt: ${Events.InteractionCreate}`, `button: ${interaction.customId}`]}),
+        logger: createLogger(['Runner', 'Bot', `evt: ${Events.InteractionCreate}`, `button: ${interaction.customId}`]),
         client: interaction.client,
       }
 
@@ -42,7 +42,7 @@ export default {
 
       const commandCtx: AppContext = {
         ...ctx,
-        logger: createLogger({name: 'BOT', childs: [`evt: ${Events.InteractionCreate}`, `cmd: /${interaction.commandName}`]}),
+        logger: createLogger(['Runner', 'Bot', `evt: ${Events.InteractionCreate}`, `cmd: /${interaction.commandName}`]),
         client: interaction.client,
       }
 

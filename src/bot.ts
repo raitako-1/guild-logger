@@ -34,7 +34,7 @@ export class Bot {
   }
 
   static async create() {
-    const logger = createLogger({name: 'Bot'})
+    const logger = createLogger(['Runner', 'Bot'])
     logger.info(`Creating bot...`)
 
     const myIntents: any[] = Array.from(new Set(Object.values(GatewayIntentBits).filter(Number.isInteger)))
@@ -55,7 +55,7 @@ export class Bot {
       const event = (await import(filePath)).default as EventModule
       const eventCtx: AppContext = {
         ...ctx,
-        logger: createLogger({name: 'BOT', childs: [`evt: ${event.name}`]}),
+        logger: createLogger(['Runner', 'Bot', `evt: ${event.name}`]),
       }
       if (event.once) {
         logger.debug(`Set event (once): ${event.name} at ${filePath}`)
@@ -90,7 +90,7 @@ export class Bot {
 
     logger.debug('Source was loaded!')
 
-    logger.info('Bot has been created!')
+    logger.debug('Bot has been created!')
 
     return new Bot(client, ctx)
   }
@@ -98,14 +98,15 @@ export class Bot {
   async start() {
     this.ctx.logger.info(`Starting bot...`)
     await this.client.login(env.BOT_TOKEN)
+    this.ctx.logger.info('Bot started')
   }
 
-  async close() {
+  async stop() {
     this.ctx.logger.info('Stopping bot...')
     const logChannel = await this.client.channels.fetch(env.BOT_LOG_CHANNEL_ID)
     if (logChannel?.type === 0) await logChannel.send(env.BOT_CLOSED_MESSAGE)
     await this.client.destroy()
-    this.ctx.logger.info('Bot closed')
+    this.ctx.logger.info('Bot stopped')
   }
 }
 
