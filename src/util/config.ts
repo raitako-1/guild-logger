@@ -1,7 +1,7 @@
 import { Client } from 'discord.js'
-import { type Logger } from './logger'
 import dotenv from 'dotenv'
 import { bool, cleanEnv, str, testOnly } from 'envalid'
+import { type Logger } from './logger'
 
 export interface AppContext {
   logger: Logger

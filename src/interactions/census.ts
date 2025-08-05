@@ -16,7 +16,7 @@ export default {
     ctx.logger.info('Runs census script.')
     const censusCtx: AppContext = {
       ...ctx,
-      logger: createLogger({name: 'BOT', childs: [`evt: ${Events.InteractionCreate}`, `cmd: /${interaction.commandName}`, 'script: census']}),
+      logger: createLogger(['Runner', 'BOT', `evt: ${Events.InteractionCreate}`, `cmd: /${interaction.commandName}`, 'script: census']),
     }
     await census(censusCtx)
     await interaction.reply('Done!')

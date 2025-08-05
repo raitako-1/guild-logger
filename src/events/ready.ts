@@ -23,7 +23,7 @@ export default {
 
     const censusOnReadyCtx: AppContext = {
       ...ctx,
-      logger: createLogger({name: 'BOT', childs: [`evt: ${Events.ClientReady}`, 'script: census']}),
+      logger: createLogger(['Runner', 'BOT', `evt: ${Events.ClientReady}`, 'script: census']),
       client,
     }
     await census(censusOnReadyCtx)
@@ -31,7 +31,7 @@ export default {
       ctx.logger.info('Setting CensusScript to crontab...')
       const censusCtx: AppContext = {
         ...ctx,
-        logger: createLogger({name: 'BOT', childs: ['node-cron', 'script: census']}),
+        logger: createLogger(['Runner', 'BOT', 'node-cron', 'script: census']),
         client,
       }
       cron.schedule('0 0 0 * * *', async (): Promise<void> => await census(censusCtx))
